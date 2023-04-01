@@ -1,0 +1,1564 @@
+<html>
+<head>
+<title>main2.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000080; font-weight: bold;}
+.s1 { color: #000000;}
+.s2 { color: #008080; font-weight: bold;}
+.s3 { color: #0000ff;}
+.s4 { color: #808080; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main2.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span>tkinter <span class="s0">import </span>Tk, Label, Frame, Button, Canvas
+<span class="s0">from </span>PIL <span class="s0">import </span>ImageTk, Image
+<span class="s0">from </span>pygame <span class="s0">import </span>mixer
+<span class="s0">from </span>random <span class="s0">import </span>randrange, randint
+<span class="s0">from </span>statistics <span class="s0">import </span>mode
+<span class="s0">from </span>webbrowser <span class="s0">import </span>open_new
+<span class="s0">from </span>graphicspy <span class="s0">import </span>*
+font = (<span class="s2">'times new roman'</span>, <span class="s3">22</span>, <span class="s2">'bold'</span>)
+
+
+<span class="s0">if </span>__name__ == <span class="s2">'__main__'</span>:
+
+    <span class="s0">def </span>exit1():
+        screen1.destroy()
+        quit()
+
+
+    <span class="s0">def </span>househis():
+        <span class="s0">global </span>screen_2_2
+
+        <span class="s0">def </span>back1():
+            <span class="s0">global </span>screen1
+            screen_2_2.destroy()
+            screen1 = Tk()
+            screen1.title(<span class="s2">'      HARRY POTTER GAME AND QUIZ'</span>)
+            screen1.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+            screen1.state(<span class="s2">'zoomed'</span>)
+            <span class="s4"># screen1.resizable(True, True)</span>
+            mixer.init()
+            x = screen1.winfo_screenwidth()
+            y = screen1.winfo_screenheight()
+            x1, y1 = round(x / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1), round(y / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1)
+
+            <span class="s4"># mixer.music.load('music\\Harry Potter theme.mp3')</span>
+            <span class="s4"># mixer.music.play(loops=1000)</span>
+
+            <span class="s4"># creating a canvas</span>
+            canvas = Canvas(screen1, width=x, height=y)
+            canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+            <span class="s4"># set image in canvas</span>
+            my_image = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">1stbg.png'</span>, screen1))
+            canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=my_image)
+            <span class="s4"># add a label</span>
+
+            btn1 = Button(screen1, text=<span class="s2">'HOUSES OF HOGWARTS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                          width=sx(<span class="s3">25</span>, screen1), command=househis)
+            btn2 = Button(screen1, text=<span class="s2">'HOUSE SORTING GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                          width=sx(<span class="s3">25</span>, screen1), command=house)
+            btn3 = Button(screen1, text=<span class="s2">'QUIZ GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>, width=sx(<span class="s3">25</span>, screen1),
+                          command=quiz)
+            btn4 = Button(screen1, text=<span class="s2">'HARRY POTTER BOOKS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                          width=sx(<span class="s3">25</span>, screen1), command=books)
+
+            btn5 = Button(screen1, text=<span class="s2">'EXIT'</span>, font=font, bg=<span class="s2">'#b35900'</span>, fg=<span class="s2">'#ffe6cc'</span>, command=exit1)
+            btn6 = Button(screen1, text=<span class="s2">'CREDITS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#ffffff'</span>, command=credits)
+
+            win65 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1 - sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'nw'</span>, window=btn1)
+            win66 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1 - sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'ne'</span>, window=btn2)
+            win67 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1, anchor=<span class="s2">'nw'</span>, window=btn3)
+            win68 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1, anchor=<span class="s2">'ne'</span>, window=btn4)
+
+            win69 = canvas.create_window(x1 + sx(<span class="s3">595</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>, window=btn5)
+            win70 = canvas.create_window(x1 + sx(<span class="s3">250</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>, window=btn6)
+
+            screen1.mainloop()
+
+        <span class="s4"># noinspection PyUnboundLocalVariable</span>
+        <span class="s0">def </span>slyth():
+            <span class="s0">global </span>screen_2_3
+
+            <span class="s0">def </span>back2():
+                <span class="s0">global </span>screen_2_2
+                screen_2_3.destroy()
+                screen_2_2 = Tk()
+                screen_2_2.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                screen_2_2.title(<span class="s2">'HISTORY OF HOUSES'</span>)
+                screen_2_2.state(<span class="s2">'zoomed'</span>)
+                screen_2_2.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+                x = screen_2_2.winfo_screenwidth()
+                y = screen_2_2.winfo_screenheight()
+                x1, y1 = round(x / <span class="s3">2</span>), round(y / <span class="s3">2</span>)
+
+                house_photo = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hall.png'</span>, screen_2_2))
+
+                <span class="s4"># creating a canvas</span>
+                canvas = Canvas(screen_2_2, width=x, height=y)
+                canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+                <span class="s4"># set image in canvas</span>
+
+                canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=house_photo)
+                <span class="s4"># add a label</span>
+
+                sly = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">slytherin.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                gry = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">gryffindor.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                huf = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hufflepuf.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                rav = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">ravenclaw.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+
+                btn1 = Button(screen_2_2, image=sly, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=slyth)
+                btn2 = Button(screen_2_2, image=gry, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=griff)
+                btn3 = Button(screen_2_2, image=huf, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=huffl)
+                btn4 = Button(screen_2_2, image=rav, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=raven)
+
+                btn5 = Button(screen_2_2, text=<span class="s2">'BACK'</span>, font=font, bg=<span class="s2">'yellow'</span>, fg=<span class="s2">'brown'</span>, command=back1)
+
+                win27 = canvas.create_window(x1 - sx(<span class="s3">225</span>, screen_2_2), y1 - sy(<span class="s3">245</span>, screen_2_2), anchor=<span class="s2">'nw'</span>,
+                                             window=btn1)
+                win28 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 - sy(<span class="s3">245</span>, screen_2_2), anchor=<span class="s2">'ne'</span>,
+                                             window=btn2)
+                win29 = canvas.create_window(x1 - sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">205</span>, screen_2_2), anchor=<span class="s2">'sw'</span>,
+                                             window=btn3)
+                win30 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">205</span>, screen_2_2), anchor=<span class="s2">'se'</span>,
+                                             window=btn4)
+
+                win31 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">210</span>, screen_2_2), anchor=<span class="s2">'nw'</span>,
+                                             window=btn5)
+
+                screen_2_2.mainloop()
+
+            screen_2_2.destroy()
+            screen_2_3 = Tk()
+            screen_2_3.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+            screen_2_3.title(<span class="s2">'HISTORY OF HOUSES'</span>)
+            screen_2_3.state(<span class="s2">'zoomed'</span>)
+            screen_2_3.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+            result = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">slyhis.png'</span>, screen_2_3))
+            bglblx = Label(screen_2_3, image=result)
+            bglblx.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+            bglblx.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>)
+
+            bbtn = Button(screen_2_3, text=<span class="s2">'BACK'</span>, bg=<span class="s2">'#77b300'</span>, fg=<span class="s2">'white'</span>, font=font, command=back2)
+            bbtn.pack()
+            bbtn.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=sx(<span class="s3">930</span>, screen_2_3), y=sy(<span class="s3">550</span>, screen_2_3))
+
+            screen_2_3.mainloop()
+
+        <span class="s4"># noinspection PyUnboundLocalVariable</span>
+        <span class="s0">def </span>griff():
+            <span class="s0">def </span>back2():
+                <span class="s0">global </span>screen_2_2
+                screen_2_3.destroy()
+                screen_2_2 = Tk()
+                screen_2_2.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                screen_2_2.title(<span class="s2">'HISTORY OF HOUSES'</span>)
+                screen_2_2.state(<span class="s2">'zoomed'</span>)
+                screen_2_2.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+                x = screen_2_2.winfo_screenwidth()
+                y = screen_2_2.winfo_screenheight()
+                x1, y1 = round(x / <span class="s3">2</span>), round(y / <span class="s3">2</span>)
+
+                house_photo = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hall.png'</span>, screen_2_2))
+
+                <span class="s4"># creating a canvas</span>
+                canvas = Canvas(screen_2_2, width=x, height=y)
+                canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+                <span class="s4"># set image in canvas</span>
+
+                canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=house_photo)
+                <span class="s4"># add a label</span>
+
+                sly = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">slytherin.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                gry = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">gryffindor.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                huf = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hufflepuf.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                rav = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">ravenclaw.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+
+                btn1 = Button(screen_2_2, image=sly, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=slyth)
+                btn2 = Button(screen_2_2, image=gry, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=griff)
+                btn3 = Button(screen_2_2, image=huf, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=huffl)
+                btn4 = Button(screen_2_2, image=rav, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=raven)
+
+                btn5 = Button(screen_2_2, text=<span class="s2">'BACK'</span>, font=font, bg=<span class="s2">'yellow'</span>, fg=<span class="s2">'brown'</span>, command=back1)
+
+                win27 = canvas.create_window(x1 - sx(<span class="s3">225</span>, screen_2_2), y1 - sy(<span class="s3">245</span>, screen_2_2), anchor=<span class="s2">'nw'</span>,
+                                             window=btn1)
+                win28 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 - sy(<span class="s3">245</span>, screen_2_2), anchor=<span class="s2">'ne'</span>,
+                                             window=btn2)
+                win29 = canvas.create_window(x1 - sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">205</span>, screen_2_2), anchor=<span class="s2">'sw'</span>,
+                                             window=btn3)
+                win30 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">205</span>, screen_2_2), anchor=<span class="s2">'se'</span>,
+                                             window=btn4)
+
+                win31 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">210</span>, screen_2_2), anchor=<span class="s2">'nw'</span>,
+                                             window=btn5)
+
+                screen_2_2.mainloop()
+
+            screen_2_2.destroy()
+            screen_2_3 = Tk()
+            screen_2_3.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+            screen_2_3.title(<span class="s2">'HISTORY OF HOUSES'</span>)
+            screen_2_3.state(<span class="s2">'zoomed'</span>)
+            screen_2_3.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+            result = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">gryfhis.png'</span>, screen_2_3))
+            bglblx = Label(screen_2_3, image=result)
+            bglblx.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+            bglblx.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>)
+
+            bbtn = Button(screen_2_3, text=<span class="s2">'BACK'</span>, bg=<span class="s2">'#ffdb4d'</span>, fg=<span class="s2">'white'</span>, font=font, command=back2)
+            bbtn.pack()
+            bbtn.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=sx(<span class="s3">930</span>, screen_2_3), y=sy(<span class="s3">550</span>, screen_2_3))
+
+            screen_2_3.mainloop()
+
+        <span class="s4"># noinspection PyUnboundLocalVariable</span>
+        <span class="s0">def </span>huffl():
+            <span class="s0">def </span>back2():
+                <span class="s0">global </span>screen_2_2
+                screen_2_3.destroy()
+                screen_2_2 = Tk()
+                screen_2_2.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                screen_2_2.title(<span class="s2">'HISTORY OF HOUSES'</span>)
+                screen_2_2.state(<span class="s2">'zoomed'</span>)
+                screen_2_2.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+                x = screen_2_2.winfo_screenwidth()
+                y = screen_2_2.winfo_screenheight()
+                x1, y1 = round(x / <span class="s3">2</span>), round(y / <span class="s3">2</span>)
+
+                house_photo = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hall.png'</span>, screen_2_2))
+
+                <span class="s4"># creating a canvas</span>
+                canvas = Canvas(screen_2_2, width=x, height=y)
+                canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+                <span class="s4"># set image in canvas</span>
+
+                canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=house_photo)
+                <span class="s4"># add a label</span>
+
+                sly = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">slytherin.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                gry = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">gryffindor.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                huf = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hufflepuf.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                rav = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">ravenclaw.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+
+                btn1 = Button(screen_2_2, image=sly, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=slyth)
+                btn2 = Button(screen_2_2, image=gry, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=griff)
+                btn3 = Button(screen_2_2, image=huf, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=huffl)
+                btn4 = Button(screen_2_2, image=rav, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=raven)
+
+                btn5 = Button(screen_2_2, text=<span class="s2">'BACK'</span>, font=font, bg=<span class="s2">'yellow'</span>, fg=<span class="s2">'brown'</span>, command=back1)
+
+                win27 = canvas.create_window(x1 - sx(<span class="s3">225</span>, screen_2_2), y1 - sy(<span class="s3">245</span>, screen_2_2), anchor=<span class="s2">'nw'</span>,
+                                             window=btn1)
+                win28 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 - sy(<span class="s3">245</span>, screen_2_2), anchor=<span class="s2">'ne'</span>,
+                                             window=btn2)
+                win29 = canvas.create_window(x1 - sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">205</span>, screen_2_2), anchor=<span class="s2">'sw'</span>,
+                                             window=btn3)
+                win30 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">205</span>, screen_2_2), anchor=<span class="s2">'se'</span>,
+                                             window=btn4)
+
+                win31 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">210</span>, screen_2_2), anchor=<span class="s2">'nw'</span>,
+                                             window=btn5)
+
+                screen_2_2.mainloop()
+
+            screen_2_2.destroy()
+            screen_2_3 = Tk()
+            screen_2_3.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+            screen_2_3.title(<span class="s2">'HISTORY OF HOUSES'</span>)
+            screen_2_3.state(<span class="s2">'zoomed'</span>)
+            screen_2_3.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+            result = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hufhis.png'</span>, screen_2_3))
+            bglblx = Label(screen_2_3, image=result)
+            bglblx.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+            bglblx.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>)
+
+            bbtn = Button(screen_2_3, text=<span class="s2">'BACK'</span>, bg=<span class="s2">'#cccc00'</span>, fg=<span class="s2">'white'</span>, font=font, command=back2)
+            bbtn.pack()
+            bbtn.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=sx(<span class="s3">930</span>, screen_2_3), y=sy(<span class="s3">550</span>, screen_2_3))
+
+            screen_2_3.mainloop()
+
+        <span class="s4"># noinspection PyUnboundLocalVariable</span>
+        <span class="s0">def </span>raven():
+            <span class="s0">def </span>back2():
+                <span class="s0">global </span>screen_2_2
+                screen_2_3.destroy()
+                screen_2_2 = Tk()
+                screen_2_2.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                screen_2_2.title(<span class="s2">'HISTORY OF HOUSES'</span>)
+                screen_2_2.state(<span class="s2">'zoomed'</span>)
+                screen_2_2.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+                x = screen_2_2.winfo_screenwidth()
+                y = screen_2_2.winfo_screenheight()
+                x1, y1 = round(x / <span class="s3">2</span>), round(y / <span class="s3">2</span>)
+
+                house_photo = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hall.png'</span>, screen_2_2))
+
+                <span class="s4"># creating a canvas</span>
+                canvas = Canvas(screen_2_2, width=x, height=y)
+                canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+                <span class="s4"># set image in canvas</span>
+
+                canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=house_photo)
+                <span class="s4"># add a label</span>
+
+                sly = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">slytherin.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                gry = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">gryffindor.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                huf = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hufflepuf.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                rav = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">ravenclaw.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+
+                btn1 = Button(screen_2_2, image=sly, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=slyth)
+                btn2 = Button(screen_2_2, image=gry, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=griff)
+                btn3 = Button(screen_2_2, image=huf, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=huffl)
+                btn4 = Button(screen_2_2, image=rav, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2),
+                              command=raven)
+
+                btn5 = Button(screen_2_2, text=<span class="s2">'BACK'</span>, font=font, bg=<span class="s2">'yellow'</span>, fg=<span class="s2">'brown'</span>, command=back1)
+
+                win27 = canvas.create_window(x1 - sx(<span class="s3">225</span>, screen_2_2), y1 - sy(<span class="s3">245</span>, screen_2_2), anchor=<span class="s2">'nw'</span>,
+                                             window=btn1)
+                win28 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 - sy(<span class="s3">245</span>, screen_2_2), anchor=<span class="s2">'ne'</span>,
+                                             window=btn2)
+                win29 = canvas.create_window(x1 - sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">205</span>, screen_2_2), anchor=<span class="s2">'sw'</span>,
+                                             window=btn3)
+                win30 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">205</span>, screen_2_2), anchor=<span class="s2">'se'</span>,
+                                             window=btn4)
+
+                win31 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">210</span>, screen_2_2), anchor=<span class="s2">'nw'</span>,
+                                             window=btn5)
+
+                screen_2_2.mainloop()
+
+            screen_2_2.destroy()
+            screen_2_3 = Tk()
+            screen_2_3.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+            screen_2_3.title(<span class="s2">'HISTORY OF HOUSES'</span>)
+            screen_2_3.state(<span class="s2">'zoomed'</span>)
+            screen_2_3.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+            result = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">ravhis.png'</span>, screen_2_3))
+            bglblx = Label(screen_2_3, image=result)
+            bglblx.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+            bglblx.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>)
+
+            bbtn = Button(screen_2_3, text=<span class="s2">'BACK'</span>, bg=<span class="s2">'#0059b3'</span>, fg=<span class="s2">'white'</span>, font=font, command=back2)
+            bbtn.pack()
+            bbtn.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=sx(<span class="s3">930</span>, screen_2_3), y=sy(<span class="s3">550</span>, screen_2_3))
+
+            screen_2_3.mainloop()
+
+        <span class="s0">global </span>screen1
+        screen1.destroy()
+        screen_2_2 = Tk()
+        screen_2_2.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+        screen_2_2.title(<span class="s2">'HISTORY OF HOUSES'</span>)
+        screen_2_2.state(<span class="s2">'zoomed'</span>)
+        screen_2_2.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+        x = screen_2_2.winfo_screenwidth()
+        y = screen_2_2.winfo_screenheight()
+        x1, y1 = round(x / <span class="s3">2</span>), round(y / <span class="s3">2</span>)
+
+        house_photo = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hall.png'</span>, screen_2_2))
+
+        <span class="s4"># creating a canvas</span>
+        canvas = Canvas(screen_2_2, width=x, height=y)
+        canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+        <span class="s4"># set image in canvas</span>
+
+        canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=house_photo)
+        <span class="s4"># add a label</span>
+
+        sly = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">slytherin.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+        gry = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">gryffindor.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+        huf = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hufflepuf.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+        rav = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">ravenclaw.jpg'</span>, screen_2_2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+
+        btn1 = Button(screen_2_2, image=sly, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2), command=slyth)
+        btn2 = Button(screen_2_2, image=gry, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2), command=griff)
+        btn3 = Button(screen_2_2, image=huf, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2), command=huffl)
+        btn4 = Button(screen_2_2, image=rav, width=sy(<span class="s3">200</span>, screen_2_2), height=sy(<span class="s3">200</span>, screen_2_2), command=raven)
+
+        btn5 = Button(screen_2_2, text=<span class="s2">'BACK'</span>, font=font, bg=<span class="s2">'yellow'</span>, fg=<span class="s2">'brown'</span>, command=back1)
+
+        win27 = canvas.create_window(x1 - sx(<span class="s3">225</span>, screen_2_2), y1 - sy(<span class="s3">245</span>, screen_2_2), anchor=<span class="s2">'nw'</span>, window=btn1)
+        win28 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 - sy(<span class="s3">245</span>, screen_2_2), anchor=<span class="s2">'ne'</span>, window=btn2)
+        win29 = canvas.create_window(x1 - sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">205</span>, screen_2_2), anchor=<span class="s2">'sw'</span>, window=btn3)
+        win30 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">205</span>, screen_2_2), anchor=<span class="s2">'se'</span>, window=btn4)
+
+        win31 = canvas.create_window(x1 + sx(<span class="s3">225</span>, screen_2_2), y1 + sy(<span class="s3">210</span>, screen_2_2), anchor=<span class="s2">'nw'</span>, window=btn5)
+
+        screen_2_2.mainloop()
+
+
+    <span class="s4"># noinspection PyUnboundLocalVariable</span>
+    <span class="s0">def </span>house():
+        <span class="s0">def </span>sorting():
+            <span class="s0">def </span>questions():
+                <span class="s0">global </span>n, scores, screen4
+
+                <span class="s0">def </span>results():
+
+                    <span class="s0">def </span>End():
+                        screen5.destroy()
+
+                    <span class="s0">def </span>back():
+                        <span class="s0">global </span>screen1
+                        screen5.destroy()
+
+                        screen1 = Tk()
+                        screen1.title(<span class="s2">'      HARRY POTTER GAME AND QUIZ'</span>)
+                        screen1.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                        screen1.state(<span class="s2">'zoomed'</span>)
+                        <span class="s4"># screen1.resizable(True, True)</span>
+                        mixer.init()
+                        x = screen1.winfo_screenwidth()
+                        y = screen1.winfo_screenheight()
+                        x1, y1 = round(x / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1), round(y / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1)
+
+                        <span class="s4"># mixer.music.load('music\\Harry Potter theme.mp3')</span>
+                        <span class="s4"># mixer.music.play(loops=1000)</span>
+
+                        <span class="s4"># creating a canvas</span>
+                        canvas = Canvas(screen1, width=x, height=y)
+                        canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+                        <span class="s4"># set image in canvas</span>
+                        my_image = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">1stbg.png'</span>, screen1))
+                        canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=my_image)
+                        <span class="s4"># add a label</span>
+
+                        btn1 = Button(screen1, text=<span class="s2">'HOUSES OF HOGWARTS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                                      width=sx(<span class="s3">25</span>, screen1), command=househis)
+                        btn2 = Button(screen1, text=<span class="s2">'HOUSE SORTING GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                                      width=sx(<span class="s3">25</span>, screen1), command=house)
+                        btn3 = Button(screen1, text=<span class="s2">'QUIZ GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                                      width=sx(<span class="s3">25</span>, screen1), command=quiz)
+                        btn4 = Button(screen1, text=<span class="s2">'HARRY POTTER BOOKS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                                      width=sx(<span class="s3">25</span>, screen1), command=books)
+
+                        btn5 = Button(screen1, text=<span class="s2">'EXIT'</span>, font=font, bg=<span class="s2">'#b35900'</span>, fg=<span class="s2">'#ffe6cc'</span>, command=exit1)
+                        btn6 = Button(screen1, text=<span class="s2">'CREDITS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#ffffff'</span>, command=credits)
+
+                        win65 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1 - sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'nw'</span>, window=btn1)
+                        win66 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1 - sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'ne'</span>, window=btn2)
+                        win67 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1, anchor=<span class="s2">'nw'</span>, window=btn3)
+                        win68 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1, anchor=<span class="s2">'ne'</span>, window=btn4)
+
+                        win69 = canvas.create_window(x1 + sx(<span class="s3">595</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>,
+                                                     window=btn5)
+                        win70 = canvas.create_window(x1 + sx(<span class="s3">250</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>,
+                                                     window=btn6)
+
+                        screen1.mainloop()
+
+                    <span class="s0">global </span>scores
+                    mixer.music.stop()
+                    <span class="s4"># mixer.music.load('music\\end song hp.mp3')</span>
+                    <span class="s4"># mixer.music.play(loops=3)</span>
+
+                    screen5 = Tk()
+                    screen5.title(<span class="s2">'Final Result'</span>)
+                    screen5.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                    screen5.state(<span class="s2">'zoomed'</span>)
+                    screen5.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+                    result = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">results.png'</span>, screen5))
+                    bglblx = Label(screen5, image=result)
+                    bglblx.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+                    bglblx.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>)
+
+                    c = mode(scores)
+                    house1 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">slytherin.jpg'</span>, screen5, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                    house2 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">gryffindor.jpg'</span>, screen5, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                    house3 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hufflepuf.jpg'</span>, screen5, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+                    house4 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">ravenclaw.jpg'</span>, screen5, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+
+                    lblx = Label(screen5, bg=<span class="s2">'#000080'</span>, font=font, fg=<span class="s2">'white'</span>, )
+                    lblx.pack(padx=sx(<span class="s3">100</span>, screen5), pady=sy(<span class="s3">30</span>, screen5))
+                    hs = [<span class="s2">'SLYTHERIN'</span>, <span class="s2">'GRYFFINDOR'</span>, <span class="s2">'HUFFLEPUF'</span>, <span class="s2">'RAVENCLAW'</span>]
+                    k = hs[c - <span class="s3">1</span>]
+                    <span class="s0">if </span>c == <span class="s3">1</span>:
+                        img = house1
+                        lblx.config(text=<span class="s2">'THE SORTING HAT HAS PLACED YOU IN</span><span class="s0">\n</span><span class="s2">%s' </span>% k, justify=<span class="s2">'center'</span>)
+
+                    <span class="s0">elif </span>c == <span class="s3">2</span>:
+                        img = house2
+                        lblx.config(text=<span class="s2">'THE SORTING HAT HAS PLACED YOU IN</span><span class="s0">\n</span><span class="s2">%s' </span>% k, justify=<span class="s2">'center'</span>)
+
+                    <span class="s0">elif </span>c == <span class="s3">3</span>:
+                        img = house3
+                        lblx.config(text=<span class="s2">'THE SORTING HAT HAS PLACED YOU IN</span><span class="s0">\n</span><span class="s2">%s' </span>% k, justify=<span class="s2">'center'</span>)
+
+                    <span class="s0">else</span>:
+                        img = house4
+                        lblx.config(text=<span class="s2">'THE SORTING HAT HAS PLACED YOU IN</span><span class="s0">\n</span><span class="s2">%s' </span>% k, justify=<span class="s2">'center'</span>)
+
+                    btnx = Button(screen5, image=img, width=sy(<span class="s3">200</span>, screen5), height=sy(<span class="s3">200</span>, screen5))
+                    btnx.pack(padx=sx(<span class="s3">100</span>, screen5), pady=sy(<span class="s3">30</span>, screen5))
+
+                    btnbk = Button(screen5, text=<span class="s2">'BACK'</span>, bg=<span class="s2">'#a64dff'</span>, fg=<span class="s2">'#e6e6ff'</span>, font=font, command=back)
+                    btnbk.pack(padx=sx(<span class="s3">100</span>, screen5), pady=sy(<span class="s3">10</span>, screen5))
+
+                    end = Button(screen5, text=<span class="s2">'EXIT'</span>, bg=<span class="s2">'#a64dff'</span>, fg=<span class="s2">'#e6e6ff'</span>, font=font, command=End)
+                    end.pack(padx=sx(<span class="s3">100</span>, screen5), pady=sy(<span class="s3">20</span>, screen5))
+
+                    screen5.mainloop()
+
+                <span class="s0">def </span>next1():
+
+                    <span class="s0">global </span>n, scores, screen4
+                    screen4.destroy()
+                    questions1 = [<span class="s2">'Pick a magical subject!'</span>, <span class="s2">'Vote for your favourite defense against dark arts teacher!'</span>,
+                                  <span class="s2">'Pick a pet!'</span>,
+                                  <span class="s2">'Where do you see yourself in your free time ?'</span>, <span class="s2">'Who do you like the most ?'</span>,
+                                  <span class="s2">'Which way of transportation would you prefer?'</span>, <span class="s2">'Pick a colour!'</span>]
+                    <span class="s0">if </span>n &lt; <span class="s3">6</span>:
+                        n += <span class="s3">1</span>
+
+                        scores.append(<span class="s3">1</span>)
+
+                        screen4 = Tk()
+                        screen4.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                        screen4.title(<span class="s2">'ANSWER THE FOLLOWING QUESTION TO FIND YOUR HOUSE'</span>)
+                        screen4.state(<span class="s2">'zoomed'</span>)
+                        screen4.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+                        questionbg = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">questionbg.jpg'</span>, screen4))
+                        bglbl = Label(screen4, image=questionbg)
+                        bglbl.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+                        bglbl.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>)
+
+                        x = screen4.winfo_screenwidth()
+                        y = screen4.winfo_screenheight()
+                        ya, xa = y / <span class="s3">2</span>, x / <span class="s3">2</span>
+                        y1, x1 = ya - <span class="s3">200</span>, xa - <span class="s3">200</span>
+
+                        qlbl = Label(screen4, bg=<span class="s2">'#99b3ff'</span>, fg=<span class="s2">'#204060'</span>, text=questions1[n], font=font)
+                        qlbl.pack(padx=sx(<span class="s3">200</span>, screen4), pady=sy(<span class="s3">10</span>, screen4), ipadx=sx(<span class="s3">20</span>, screen4), ipady=sy(<span class="s3">5</span>, screen4))
+
+                        <span class="s0">if </span>n != <span class="s3">6</span>:
+                            photo_image1 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">0</span>]))
+                            photo_image2 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">1</span>]))
+                            photo_image3 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">2</span>]))
+                            photo_image4 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">3</span>]))
+
+                            frame = Frame(screen4)
+                            frame.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=x1, y=y1)
+
+                            btn1 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image1, command=next1)
+                            btn2 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image2, command=next2)
+                            btn3 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image3, command=next3)
+                            btn4 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image4, command=next4)
+
+                            a = [btn1, btn2, btn3, btn4]
+
+                            <span class="s0">for </span>i <span class="s0">in </span>range(<span class="s3">2</span>):
+                                <span class="s0">for </span>j <span class="s0">in </span>range(<span class="s3">2</span>):
+                                    d = randrange(len(a))
+                                    e = a[d]
+                                    e.grid(row=i, column=j)
+                                    a.remove(e)
+                        <span class="s0">else</span>:
+                            frame = Frame(screen4)
+
+                            frame.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=x1, y=y1)
+
+                            btn1 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'BLACK'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'black'</span>,
+                                          command=next1)
+                            btn2 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'RED'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'red'</span>,
+                                          command=next2)
+                            btn3 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'PINK'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'pink'</span>,
+                                          command=next3)
+                            btn4 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'BLUE'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'blue'</span>,
+                                          command=next4)
+
+                            a = [btn1, btn2, btn3, btn4]
+
+                            <span class="s0">for </span>i <span class="s0">in </span>range(<span class="s3">2</span>):
+                                <span class="s0">for </span>j <span class="s0">in </span>range(<span class="s3">2</span>):
+                                    d = randrange(len(a))
+                                    e = a[d]
+                                    e.grid(row=i, column=j)
+                                    a.remove(e)
+
+                        screen4.mainloop()
+
+                    <span class="s0">else</span>:
+                        results()
+
+                <span class="s0">def </span>next2():
+
+                    <span class="s0">global </span>n, scores, screen4
+                    screen4.destroy()
+                    questions1 = [<span class="s2">'Pick a magical subject!'</span>, <span class="s2">'Vote for your favourite defense against dark arts teacher!'</span>,
+                                  <span class="s2">'Pick a pet!'</span>,
+                                  <span class="s2">'Where do you see yourself in your free time ?'</span>, <span class="s2">'Who do you like the most ?'</span>,
+                                  <span class="s2">'Which way of transportation would you prefer?'</span>, <span class="s2">'Pick a colour!'</span>]
+                    <span class="s0">if </span>n &lt; <span class="s3">6</span>:
+                        n += <span class="s3">1</span>
+
+                        scores.append(<span class="s3">2</span>)
+
+                        screen4 = Tk()
+                        screen4.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                        screen4.title(<span class="s2">'ANSWER THE FOLLOWING QUESTION TO FIND YOUR HOUSE'</span>)
+                        screen4.state(<span class="s2">'zoomed'</span>)
+                        screen4.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+                        questionbg = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">questionbg.jpg'</span>, screen4))
+                        bglbl = Label(screen4, image=questionbg)
+                        bglbl.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+                        bglbl.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>)
+
+                        x = screen4.winfo_screenwidth()
+                        y = screen4.winfo_screenheight()
+                        ya, xa = y / <span class="s3">2</span>, x / <span class="s3">2</span>
+                        y1, x1 = ya - <span class="s3">200</span>, xa - <span class="s3">200</span>
+
+                        qlbl = Label(screen4, bg=<span class="s2">'#99b3ff'</span>, fg=<span class="s2">'#204060'</span>, text=questions1[n], font=font)
+                        qlbl.pack(padx=sx(<span class="s3">200</span>, screen4), pady=sy(<span class="s3">10</span>, screen4), ipadx=sx(<span class="s3">20</span>, screen4), ipady=sy(<span class="s3">5</span>, screen4))
+
+                        <span class="s0">if </span>n != <span class="s3">6</span>:
+                            photo_image1 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">0</span>]))
+                            photo_image2 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">1</span>]))
+                            photo_image3 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">2</span>]))
+                            photo_image4 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">3</span>]))
+
+                            frame = Frame(screen4)
+                            frame.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=x1, y=y1)
+
+                            btn1 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image1, command=next1)
+                            btn2 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image2, command=next2)
+                            btn3 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image3, command=next3)
+                            btn4 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image4, command=next4)
+
+                            a = [btn1, btn2, btn3, btn4]
+
+                            <span class="s0">for </span>i <span class="s0">in </span>range(<span class="s3">2</span>):
+                                <span class="s0">for </span>j <span class="s0">in </span>range(<span class="s3">2</span>):
+                                    d = randrange(len(a))
+                                    e = a[d]
+                                    e.grid(row=i, column=j)
+                                    a.remove(e)
+                        <span class="s0">else</span>:
+                            frame = Frame(screen4)
+                            frame.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=x1, y=y1)
+
+                            btn1 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'BLACK'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'black'</span>,
+                                          command=next1)
+                            btn2 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'RED'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'red'</span>,
+                                          command=next2)
+                            btn3 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'PINK'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'pink'</span>,
+                                          command=next3)
+                            btn4 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'BLUE'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'blue'</span>,
+                                          command=next4)
+
+                            a = [btn1, btn2, btn3, btn4]
+
+                            <span class="s0">for </span>i <span class="s0">in </span>range(<span class="s3">2</span>):
+                                <span class="s0">for </span>j <span class="s0">in </span>range(<span class="s3">2</span>):
+                                    d = randrange(len(a))
+                                    e = a[d]
+                                    e.grid(row=i, column=j)
+                                    a.remove(e)
+
+                        screen4.mainloop()
+                    <span class="s0">else</span>:
+                        results()
+
+                <span class="s0">def </span>next3():
+
+                    <span class="s0">global </span>n, scores, screen4
+                    screen4.destroy()
+                    questions1 = [<span class="s2">'Pick a magical subject!'</span>, <span class="s2">'Vote for your favourite defense against dark arts teacher!'</span>,
+                                  <span class="s2">'Pick a pet!'</span>,
+                                  <span class="s2">'Where do you see yourself in your free time ?'</span>, <span class="s2">'Who do you like the most ?'</span>,
+                                  <span class="s2">'Which way of transportation would you prefer?'</span>, <span class="s2">'Pick a colour!'</span>]
+                    <span class="s0">if </span>n &lt; <span class="s3">6</span>:
+                        n += <span class="s3">1</span>
+
+                        scores.append(<span class="s3">3</span>)
+
+                        screen4 = Tk()
+                        screen4.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                        screen4.title(<span class="s2">'ANSWER THE FOLLOWING QUESTION TO FIND YOUR HOUSE'</span>)
+                        screen4.state(<span class="s2">'zoomed'</span>)
+                        screen4.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+                        questionbg = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">questionbg.jpg'</span>, screen4))
+                        bglbl = Label(screen4, image=questionbg)
+                        bglbl.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+                        bglbl.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>)
+                        x = screen4.winfo_screenwidth()
+                        y = screen4.winfo_screenheight()
+                        ya, xa = y / <span class="s3">2</span>, x / <span class="s3">2</span>
+                        y1, x1 = ya - <span class="s3">200</span>, xa - <span class="s3">200</span>
+
+                        qlbl = Label(screen4, bg=<span class="s2">'#99b3ff'</span>, fg=<span class="s2">'#204060'</span>, text=questions1[n], font=font)
+                        qlbl.pack(padx=sx(<span class="s3">200</span>, screen4), pady=sy(<span class="s3">10</span>, screen4), ipadx=sx(<span class="s3">20</span>, screen4), ipady=sy(<span class="s3">5</span>, screen4))
+
+                        <span class="s0">if </span>n != <span class="s3">6</span>:
+                            photo_image1 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">0</span>]))
+                            photo_image2 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">1</span>]))
+                            photo_image3 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">2</span>]))
+                            photo_image4 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">3</span>]))
+
+                            frame = Frame(screen4)
+                            frame.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=x1, y=y1)
+
+                            btn1 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image1, command=next1)
+                            btn2 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image2, command=next2)
+                            btn3 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image3, command=next3)
+                            btn4 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image4, command=next4)
+
+                            a = [btn1, btn2, btn3, btn4]
+
+                            <span class="s0">for </span>i <span class="s0">in </span>range(<span class="s3">2</span>):
+                                <span class="s0">for </span>j <span class="s0">in </span>range(<span class="s3">2</span>):
+                                    d = randrange(len(a))
+                                    e = a[d]
+                                    e.grid(row=i, column=j)
+                                    a.remove(e)
+                        <span class="s0">else</span>:
+                            frame = Frame(screen4)
+                            frame.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=x1, y=y1)
+
+                            btn1 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'BLACK'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'black'</span>,
+                                          command=next1)
+                            btn2 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'RED'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'red'</span>,
+                                          command=next2)
+                            btn3 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'PINK'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'pink'</span>,
+                                          command=next3)
+                            btn4 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'BLUE'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'blue'</span>,
+                                          command=next4)
+
+                            a = [btn1, btn2, btn3, btn4]
+
+                            <span class="s0">for </span>i <span class="s0">in </span>range(<span class="s3">2</span>):
+                                <span class="s0">for </span>j <span class="s0">in </span>range(<span class="s3">2</span>):
+                                    d = randrange(len(a))
+                                    e = a[d]
+                                    e.grid(row=i, column=j)
+                                    a.remove(e)
+
+                        screen4.mainloop()
+
+                    <span class="s0">else</span>:
+                        results()
+
+                <span class="s0">def </span>next4():
+                    <span class="s0">global </span>n, scores, screen4
+                    screen4.destroy()
+                    questions1 = [<span class="s2">'Pick a magical subject!'</span>, <span class="s2">'Vote for your favourite defense against dark arts teacher!'</span>,
+                                  <span class="s2">'Pick a pet!'</span>,
+                                  <span class="s2">'Where do you see yourself in your free time ?'</span>, <span class="s2">'Who do you like the most ?'</span>,
+                                  <span class="s2">'Which way of transportation would you prefer?'</span>, <span class="s2">'Pick a colour!'</span>]
+                    <span class="s0">if </span>n &lt; <span class="s3">6</span>:
+                        n += <span class="s3">1</span>
+
+                        scores.append(<span class="s3">4</span>)
+
+                        screen4 = Tk()
+                        screen4.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                        screen4.title(<span class="s2">'ANSWER THE FOLLOWING QUESTION TO FIND YOUR HOUSE'</span>)
+                        screen4.state(<span class="s2">'zoomed'</span>)
+                        screen4.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+                        questionbg = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">questionbg.jpg'</span>, screen4))
+                        bglbl = Label(screen4, image=questionbg)
+                        bglbl.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+                        bglbl.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>)
+                        x = screen4.winfo_screenwidth()
+                        y = screen4.winfo_screenheight()
+                        ya, xa = y / <span class="s3">2</span>, x / <span class="s3">2</span>
+                        y1, x1 = ya - <span class="s3">200</span>, xa - <span class="s3">200</span>
+
+
+                        qlbl = Label(screen4, bg=<span class="s2">'#99b3ff'</span>, fg=<span class="s2">'#204060'</span>, text=questions1[n], font=font)
+                        qlbl.pack(padx=sx(<span class="s3">200</span>, screen4), pady=sy(<span class="s3">10</span>, screen4), ipadx=sx(<span class="s3">20</span>, screen4), ipady=sy(<span class="s3">5</span>, screen4))
+
+                        <span class="s0">if </span>n != <span class="s3">6</span>:
+                            photo_image1 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">0</span>]))
+                            photo_image2 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">1</span>]))
+                            photo_image3 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">2</span>]))
+                            photo_image4 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">3</span>]))
+
+                            frame = Frame(screen4)
+                            frame.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=x1, y=y1)
+
+                            btn1 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image1, command=next1)
+                            btn2 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image2, command=next2)
+                            btn3 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image3, command=next3)
+                            btn4 = Button(frame, width=sy(<span class="s3">200</span>, screen4), height=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, image=photo_image4, command=next4)
+
+                            a = [btn1, btn2, btn3, btn4]
+
+                            <span class="s0">for </span>i <span class="s0">in </span>range(<span class="s3">2</span>):
+                                <span class="s0">for </span>j <span class="s0">in </span>range(<span class="s3">2</span>):
+                                    d = randrange(len(a))
+                                    e = a[d]
+                                    e.grid(row=i, column=j)
+                                    a.remove(e)
+                        <span class="s0">else</span>:
+                            frame = Frame(screen4)
+                            frame.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=x1, y=y1)
+
+                            btn1 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'BLACK'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'black'</span>,
+                                          command=next1)
+                            btn2 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'RED'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'red'</span>,
+                                          command=next2)
+                            btn3 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'PINK'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'pink'</span>,
+                                          command=next3)
+                            btn4 = Button(frame, width=<span class="s3">8</span>, height=<span class="s3">4</span>, font=font, text=<span class="s2">'BLUE'</span>, fg=<span class="s2">'white'</span>, bg=<span class="s2">'blue'</span>,
+                                          command=next4)
+
+                            a = [btn1, btn2, btn3, btn4]
+
+                            <span class="s0">for </span>i <span class="s0">in </span>range(<span class="s3">2</span>):
+                                <span class="s0">for </span>j <span class="s0">in </span>range(<span class="s3">2</span>):
+                                    d = randrange(len(a))
+                                    e = a[d]
+                                    e.grid(row=i, column=j)
+                                    a.remove(e)
+
+                        screen4.mainloop()
+                    <span class="s0">else</span>:
+                        results()
+
+                screen3.destroy()
+                image_list = [[<span class="s2">'image</span><span class="s0">\\</span><span class="s2">potion.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">herb.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">transformation.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">def.jpg'</span>],
+                              [<span class="s2">'image</span><span class="s0">\\</span><span class="s2">snape.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">lockheart.png'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">lupin.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">anyone.jpg'</span>],
+                              [<span class="s2">'image</span><span class="s0">\\</span><span class="s2">owl.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">cat.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">toad.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">anypet.png'</span>],
+                              [<span class="s2">'image</span><span class="s0">\\</span><span class="s2">forest.png'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">library.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">studyhall.png'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">friends.jpg'</span>],
+                              [<span class="s2">'image</span><span class="s0">\\</span><span class="s2">draco.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">harry.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">ron.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">hermione.jpg'</span>],
+                              [<span class="s2">'image</span><span class="s0">\\</span><span class="s2">fly.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">broom.jpg'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">hgexpress.png'</span>, <span class="s2">'image</span><span class="s0">\\</span><span class="s2">TimeTurner.png'</span>],
+                              [<span class="s2">'black'</span>, <span class="s2">'red'</span>, <span class="s2">'pink'</span>, <span class="s2">'blue'</span>]]
+
+                screen4 = Tk()
+                screen4.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                screen4.title(<span class="s2">'ANSWER THE FOLLOWING QUESTION TO FIND YOUR HOUSE'</span>)
+                screen4.state(<span class="s2">'zoomed'</span>)
+                screen4.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+                questions1 = [<span class="s2">'Pick a magical subject!'</span>, <span class="s2">'Vote for your favourite defense against dark arts teacher!'</span>,
+                              <span class="s2">'Pick a pet!'</span>,
+                              <span class="s2">'Where do you see yourself in your free time ?'</span>, <span class="s2">'Who do you like the most ?'</span>,
+                              <span class="s2">'Which way of transportation would you prefer?'</span>, <span class="s2">'Pick a colour!'</span>]
+
+                questionbg = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">questionbg.jpg'</span>, screen4))
+                bglbl = Label(screen4, image=questionbg)
+                bglbl.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+                bglbl.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>)
+
+                n, scores = <span class="s3">0</span>, []
+
+                photo_image1 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">0</span>]))
+                photo_image2 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">1</span>]))
+                photo_image3 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">2</span>]))
+                photo_image4 = ImageTk.PhotoImage(Image.open(image_list[n][<span class="s3">3</span>]))
+
+                x = screen4.winfo_screenwidth()
+                y = screen4.winfo_screenheight()
+                ya, xa = y / <span class="s3">2</span>, x / <span class="s3">2</span>
+                y1, x1 = ya - <span class="s3">200</span>, xa - <span class="s3">200</span>
+
+                qlbl = Label(screen4, bg=<span class="s2">'#99b3ff'</span>, fg=<span class="s2">'#204060'</span>, text=questions1[n], font=font)
+                qlbl.pack(padx=sx(<span class="s3">200</span>, screen4), pady=sy(<span class="s3">10</span>, screen4), ipadx=sx(<span class="s3">20</span>, screen4), ipady=sy(<span class="s3">5</span>, screen4))
+
+                frame = Frame(screen4)
+                frame.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=x1, y=y1)
+
+                btn1 = Button(frame, width=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, height=sy(<span class="s3">200</span>, screen4), image=photo_image1, command=next1)
+                btn1.grid(row=<span class="s3">1</span>, column=<span class="s3">0</span>)
+
+                btn2 = Button(frame, width=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, height=sy(<span class="s3">200</span>, screen4), image=photo_image2, command=next2)
+                btn2.grid(row=<span class="s3">1</span>, column=<span class="s3">2</span>)
+
+                btn3 = Button(frame, width=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, height=sy(<span class="s3">200</span>, screen4), image=photo_image3, command=next3)
+                btn3.grid(row=<span class="s3">2</span>, column=<span class="s3">0</span>)
+
+                btn4 = Button(frame, width=sy(<span class="s3">200</span>, screen4), bg=<span class="s2">'#ff6600'</span>, height=sy(<span class="s3">200</span>, screen4), image=photo_image4, command=next4)
+                btn4.grid(row=<span class="s3">2</span>, column=<span class="s3">2</span>)
+
+                screen4.mainloop()
+
+            screen2.destroy()
+            screen3 = Tk()
+            screen3.title(<span class="s2">'Quiz for Selection'</span>)
+            screen3.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+            screen3.state(<span class="s2">'zoomed'</span>)
+            screen3.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+            my_image = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">friends (2).png'</span>, screen3))
+            my_imagelabel3 = Label(screen3, image=my_image)
+            my_imagelabel3.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+            my_imagelabel3.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>)
+
+            text1 = <span class="s2">'''ANSWER THE FOLLOWING QUESTIONS TO KNOW WHICH 
+                   HOUSE THE SORTING HAT HAD PUT YOU IN TO'''</span>
+            textlbl2 = Label(screen3, text=text1, bg=<span class="s2">'#ffb366'</span>, fg=<span class="s2">'#663d00'</span>, font=font)
+            textlbl2.pack(pady=sy(<span class="s3">100</span>, screen3), padx=sx(<span class="s3">100</span>, screen3))
+
+            btn3 = Button(screen3, text=<span class="s2">'Click Here To Continue'</span>, font=font, fg=<span class="s2">'#FFC300'</span>, bg=<span class="s2">'#D86838'</span>, command=questions)
+            btn3.pack()
+
+            screen3.mainloop()
+
+        screen1.destroy()
+        screen2 = Tk()
+        screen2.title(<span class="s2">'    ENTRY INTO THE GREAT HALL AND BANQUET'</span>)
+        screen2.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+        screen2.state(<span class="s2">'zoomed'</span>)
+        screen2.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+        my_image = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">house-1.jpg'</span>, screen2))
+        my_imagelabel = Label(screen2, image=my_image)
+        my_imagelabel.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+        my_imagelabel.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>)
+
+        texts = <span class="s2">'''Hello Folks !, You are at Hogwarts , Click on the sorting hat to find out  
+        what house you are getting to put.'''</span>
+        textlbl = Label(screen2, text=texts, font=font, fg=<span class="s2">'#333300'</span>, bg=<span class="s2">'#ffff33'</span>)
+        textlbl.pack(padx=sx(<span class="s3">100</span>, screen2), pady=sy(<span class="s3">55</span>, screen2), ipadx=sx(<span class="s3">10</span>, screen2), ipady=sy(<span class="s3">5</span>, screen2))
+
+        my_image2 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">hat.png'</span>, screen2, <span class="s2">'sq'</span>, <span class="s3">200</span>))
+        btn = Button(screen2, image=my_image2, width=sy(<span class="s3">200</span>, screen2), height=sy(<span class="s3">200</span>, screen2), bg=<span class="s2">'#b35900'</span>, command=sorting)
+        btn.pack(padx=sx(<span class="s3">90</span>, screen2), pady=sy(<span class="s3">60</span>, screen2))
+
+        screen2.mainloop()
+
+
+    <span class="s4"># noinspection PyUnboundLocalVariable</span>
+    <span class="s0">def </span>quiz():
+        <span class="s0">global </span>screen2_quiz
+
+        <span class="s0">def </span>back1_1():
+            <span class="s0">global </span>screen1
+
+            screen2_quiz.destroy()
+            screen1 = Tk()
+            screen1.title(<span class="s2">'      HARRY POTTER GAME AND QUIZ'</span>)
+            screen1.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+            screen1.state(<span class="s2">'zoomed'</span>)
+            <span class="s4"># screen1.resizable(True, True)</span>
+            mixer.init()
+            x = screen1.winfo_screenwidth()
+            y = screen1.winfo_screenheight()
+            x1, y1 = round(x / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1), round(y / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1)
+
+            <span class="s4"># mixer.music.load('music\\Harry Potter theme.mp3')</span>
+            <span class="s4"># mixer.music.play(loops=1000)</span>
+
+            <span class="s4"># creating a canvas</span>
+            canvas = Canvas(screen1, width=x, height=y)
+            canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+            <span class="s4"># set image in canvas</span>
+            my_image = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">1stbg.png'</span>, screen1))
+            canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=my_image)
+            <span class="s4"># add a label</span>
+
+            btn1 = Button(screen1, text=<span class="s2">'HOUSES OF HOGWARTS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                          width=sx(<span class="s3">25</span>, screen1), command=househis)
+            btn2 = Button(screen1, text=<span class="s2">'HOUSE SORTING GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                          width=sx(<span class="s3">25</span>, screen1), command=house)
+            btn3 = Button(screen1, text=<span class="s2">'QUIZ GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>, width=sx(<span class="s3">25</span>, screen1),
+                          command=quiz)
+            btn4 = Button(screen1, text=<span class="s2">'HARRY POTTER BOOKS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                          width=sx(<span class="s3">25</span>, screen1), command=books)
+
+            btn5 = Button(screen1, text=<span class="s2">'EXIT'</span>, font=font, bg=<span class="s2">'#b35900'</span>, fg=<span class="s2">'#ffe6cc'</span>, command=exit1)
+            btn6 = Button(screen1, text=<span class="s2">'CREDITS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#ffffff'</span>, command=credits)
+
+            win65 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1 - sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'nw'</span>, window=btn1)
+            win66 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1 - sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'ne'</span>, window=btn2)
+            win67 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1, anchor=<span class="s2">'nw'</span>, window=btn3)
+            win68 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1, anchor=<span class="s2">'ne'</span>, window=btn4)
+
+            win69 = canvas.create_window(x1 + sx(<span class="s3">595</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>, window=btn5)
+            win70 = canvas.create_window(x1 + sx(<span class="s3">250</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>, window=btn6)
+
+            screen1.mainloop()
+        <span class="s0">def </span>question_quiz():
+            <span class="s0">global </span>question_count, score, screen2_quiz
+
+            <span class="s0">def </span>back2_2():
+                <span class="s0">global </span>screen1
+                screen3_quiz.destroy()
+                screen1 = Tk()
+                screen1.title(<span class="s2">'      HARRY POTTER GAME AND QUIZ'</span>)
+                screen1.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+                screen1.state(<span class="s2">'zoomed'</span>)
+                <span class="s4"># screen1.resizable(True, True)</span>
+                mixer.init()
+                x = screen1.winfo_screenwidth()
+                y = screen1.winfo_screenheight()
+                x1, y1 = round(x / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1), round(y / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1)
+
+                <span class="s4"># mixer.music.load('music\\Harry Potter theme.mp3')</span>
+                <span class="s4"># mixer.music.play(loops=1000)</span>
+
+                <span class="s4"># creating a canvas</span>
+                canvas = Canvas(screen1, width=x, height=y)
+                canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+                <span class="s4"># set image in canvas</span>
+                my_image = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">1stbg.png'</span>, screen1))
+                canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=my_image)
+                <span class="s4"># add a label</span>
+
+                btn1 = Button(screen1, text=<span class="s2">'HOUSES OF HOGWARTS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                              width=sx(<span class="s3">25</span>, screen1), command=househis)
+                btn2 = Button(screen1, text=<span class="s2">'HOUSE SORTING GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                              width=sx(<span class="s3">25</span>, screen1), command=house)
+                btn3 = Button(screen1, text=<span class="s2">'QUIZ GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>, width=sx(<span class="s3">25</span>, screen1),
+                              command=quiz)
+                btn4 = Button(screen1, text=<span class="s2">'HARRY POTTER BOOKS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                              width=sx(<span class="s3">25</span>, screen1), command=books)
+
+                btn5 = Button(screen1, text=<span class="s2">'EXIT'</span>, font=font, bg=<span class="s2">'#b35900'</span>, fg=<span class="s2">'#ffe6cc'</span>, command=exit1)
+                btn6 = Button(screen1, text=<span class="s2">'CREDITS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#ffffff'</span>, command=credits)
+
+                win65 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1 - sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'nw'</span>, window=btn1)
+                win66 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1 - sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'ne'</span>, window=btn2)
+                win67 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1, anchor=<span class="s2">'nw'</span>, window=btn3)
+                win68 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1, anchor=<span class="s2">'ne'</span>, window=btn4)
+
+                win69 = canvas.create_window(x1 + sx(<span class="s3">595</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>, window=btn5)
+                win70 = canvas.create_window(x1 + sx(<span class="s3">250</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>, window=btn6)
+
+                screen1.mainloop()
+            questions_list = [<span class="s2">'Who is Harry Potter</span><span class="s0">\'</span><span class="s2">s godfather?'</span>,
+                              <span class="s2">'Which class has a different teacher every year?'</span>,
+                              <span class="s2">'Who was Hermione’s date at the Yule Ball?'</span>,
+                              <span class="s2">'How many Children do Weasley Family has?'</span>,
+                              <span class="s2">'What is the name of the Weasley</span><span class="s0">\'</span><span class="s2">s house?'</span>,
+                              <span class="s2">'Which character served as a Quidditch commentator?'</span>,
+                              <span class="s2">'And what platform do students need to catch it from at King</span><span class="s0">\'</span><span class="s2">s Cross?'</span>,
+                              <span class="s2">'What is the name of the device that Dumbledore uses when putting out street lights?'</span>,
+                              <span class="s2">'What position does Harry play on the Quidditch team?'</span>,
+                              <span class="s2">'What dark wizard did Albus Dumbledore defeat in 1945?'</span>,
+                              <span class="s2">'What is Tom Riddle’s middle name?'</span>,
+                              <span class="s2">'Which type of insect is Ronald Weasley most afraid of?'</span>,
+                              <span class="s2">'What is Snape’s Patronus?'</span>,
+                              <span class="s2">'What is Snape</span><span class="s0">\'</span><span class="s2">s signature spell?'</span>,
+                              <span class="s2">'How many horcruxes does Voldemort make?'</span>,
+                              <span class="s2">'What is the name of the potion which can change a person</span><span class="s0">\'</span><span class="s2">s appearance into that of someone else?'</span>,
+                              <span class="s2">'What is Dobby?'</span>,
+                              <span class="s2">'What was the name of the shop where Harry got his first wand?'</span>,
+                              <span class="s2">'What is the name given to someone who can talk to snakes?'</span>,
+                              <span class="s2">'Which of the following is not a Deathly Hallow ?'</span>]
+
+            answer_option = [[<span class="s2">'Snape'</span>, <span class="s2">'Dumbledore'</span>, <span class="s2">'Sirius Black'</span>, <span class="s2">'Remus Lupin'</span>],
+                             [<span class="s2">'Herbology'</span>, <span class="s2">'Potions'</span>, <span class="s2">'Transfiguration'</span>, <span class="s2">'Defense Against Dark Arts'</span>],
+                             [<span class="s2">'Ron Weasley'</span>, <span class="s2">'Viktor Krum'</span>, <span class="s2">'Harry Potter'</span>, <span class="s2">'Dean Thomas'</span>],
+                             [<span class="s2">'4'</span>, <span class="s2">'5'</span>, <span class="s2">'6'</span>, <span class="s2">'7'</span>],
+                             [<span class="s2">'The Burrow'</span>, <span class="s2">'The Den'</span>, <span class="s2">'The Hole'</span>, <span class="s2">'The Cage'</span>],
+                             [<span class="s2">'Parvati'</span>, <span class="s2">'Seamus'</span>, <span class="s2">'Jordan'</span>, <span class="s2">'Neville'</span>],
+                             [<span class="s2">'10 and 1/2'</span>, <span class="s2">'9 and 1/4'</span>, <span class="s2">'9 and 3/4'</span>, <span class="s2">'10 and 3/4'</span>],
+                             [<span class="s2">'The Illuminator'</span>, <span class="s2">&quot;The Lighter&quot;</span>, <span class="s2">'The Ray Maker'</span>, <span class="s2">'The Deluminator'</span>],
+                             [<span class="s2">'Keeper'</span>, <span class="s2">'Seeker'</span>, <span class="s2">'Chaser'</span>, <span class="s2">'Beater'</span>],
+                             [<span class="s2">'Lord Voldemort'</span>, <span class="s2">'Grindelwald'</span>, <span class="s2">'Bellatrix'</span>, <span class="s2">'Salazar Slytherin'</span>],
+                             [<span class="s2">'William'</span>, <span class="s2">'John'</span>, <span class="s2">'Marvolo'</span>, <span class="s2">'Lucas'</span>],
+                             [<span class="s2">'Flies'</span>, <span class="s2">'Beetles'</span>, <span class="s2">'Mosquitoes'</span>, <span class="s2">'Spiders'</span>],
+                             [<span class="s2">'Stag'</span>, <span class="s2">'Doe'</span>, <span class="s2">'Rabbit'</span>, <span class="s2">'Wolf'</span>],
+                             [<span class="s2">'Avada Kedavra'</span>, <span class="s2">'Stupify'</span>, <span class="s2">'Sectumsempra'</span>, <span class="s2">'Expecto Patronum'</span>],
+                             [<span class="s2">'5'</span>, <span class="s2">'6'</span>, <span class="s2">'7'</span>, <span class="s2">'8'</span>],
+                             [<span class="s2">'Polyjuice'</span>, <span class="s2">'Ageing Potion'</span>, <span class="s2">'Draught of Living Death'</span>, <span class="s2">'Amortentia'</span>],
+                             [<span class="s2">'Goblin'</span>, <span class="s2">'Dwarf'</span>, <span class="s2">'Troll'</span>, <span class="s2">'House Elf'</span>],
+                             [<span class="s2">'Gringotts'</span>, <span class="s2">'Borgin and Burks'</span>, <span class="s2">'Flourish and Blotts'</span>, <span class="s2">&quot;Olivanders&quot;</span>],
+                             [<span class="s2">'All Toungue'</span>, <span class="s2">'Parseltongue'</span>, <span class="s2">'Polyglot'</span>, <span class="s2">'Snakeglot'</span>],
+                             [<span class="s2">'The Invisibility Cloak'</span>, <span class="s2">'The Goblet of fire'</span>, <span class="s2">'The Elder Wand'</span>, <span class="s2">'the Resurrection Stone'</span>]]
+
+            answer_key = [{<span class="s2">'Snape'</span>: <span class="s0">False</span>, <span class="s2">'Dumbledore'</span>: <span class="s0">False</span>, <span class="s2">'Sirius Black'</span>: <span class="s0">True</span>, <span class="s2">'Remus Lupin'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'Herbology'</span>: <span class="s0">False</span>, <span class="s2">'Potions'</span>: <span class="s0">False</span>, <span class="s2">'Transfiguration'</span>: <span class="s0">False</span>,
+                           <span class="s2">'Defense Against Dark Arts'</span>: <span class="s0">True</span>},
+                          {<span class="s2">'Ron Weasley'</span>: <span class="s0">False</span>, <span class="s2">'Viktor Krum'</span>: <span class="s0">True</span>, <span class="s2">'Harry Potter'</span>: <span class="s0">False</span>, <span class="s2">'Dean Thomas'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'4'</span>: <span class="s0">False</span>, <span class="s2">'5'</span>: <span class="s0">False</span>, <span class="s2">'6'</span>: <span class="s0">False</span>, <span class="s2">'7'</span>: <span class="s0">True</span>},
+                          {<span class="s2">'The Burrow'</span>: <span class="s0">True</span>, <span class="s2">'The Den'</span>: <span class="s0">False</span>, <span class="s2">'The Hole'</span>: <span class="s0">False</span>, <span class="s2">'The Cage'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'Parvati'</span>: <span class="s0">False</span>, <span class="s2">'Seamus'</span>: <span class="s0">False</span>, <span class="s2">'Jordan'</span>: <span class="s0">True</span>, <span class="s2">'Neville'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'10 and 1/2'</span>: <span class="s0">False</span>, <span class="s2">'9 and 1/4'</span>: <span class="s0">False</span>, <span class="s2">'9 and 3/4'</span>: <span class="s0">True</span>, <span class="s2">'10 and 3/4'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'The Illuminator'</span>: <span class="s0">False</span>, <span class="s2">&quot;The Lighter&quot;</span>: <span class="s0">False</span>, <span class="s2">'The Ray Maker'</span>: <span class="s0">False</span>, <span class="s2">'The Deluminator'</span>: <span class="s0">True</span>},
+                          {<span class="s2">'Keeper'</span>: <span class="s0">False</span>, <span class="s2">'Seeker'</span>: <span class="s0">True</span>, <span class="s2">'Chaser'</span>: <span class="s0">False</span>, <span class="s2">'Beater'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'Lord Voldemort'</span>: <span class="s0">False</span>, <span class="s2">'Grindelwald'</span>: <span class="s0">True</span>, <span class="s2">'Bellatrix'</span>: <span class="s0">False</span>, <span class="s2">'Salazar Slytherin'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'William'</span>: <span class="s0">False</span>, <span class="s2">'John'</span>: <span class="s0">False</span>, <span class="s2">'Marvolo'</span>: <span class="s0">True</span>, <span class="s2">'Lucas'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'Flies'</span>: <span class="s0">False</span>, <span class="s2">'Beetles'</span>: <span class="s0">False</span>, <span class="s2">'Mosquitoes'</span>: <span class="s0">False</span>, <span class="s2">'Spiders'</span>: <span class="s0">True</span>},
+                          {<span class="s2">'Stag'</span>: <span class="s0">False</span>, <span class="s2">'Doe'</span>: <span class="s0">True</span>, <span class="s2">'Rabbit'</span>: <span class="s0">False</span>, <span class="s2">'Wolf'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'Avada Kedavra'</span>: <span class="s0">False</span>, <span class="s2">'Stupify'</span>: <span class="s0">False</span>, <span class="s2">'Sectumsempra'</span>: <span class="s0">True</span>, <span class="s2">'Expecto Patronum'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'5'</span>: <span class="s0">False</span>, <span class="s2">'6'</span>: <span class="s0">False</span>, <span class="s2">'7'</span>: <span class="s0">True</span>, <span class="s2">'8'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'Polyjuice'</span>: <span class="s0">True</span>, <span class="s2">'Ageing Potion'</span>: <span class="s0">False</span>, <span class="s2">'Draught of Living Death'</span>: <span class="s0">False</span>,
+                           <span class="s2">'Amortentia'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'Goblin'</span>: <span class="s0">False</span>, <span class="s2">'Dwarf'</span>: <span class="s0">False</span>, <span class="s2">'Troll'</span>: <span class="s0">False</span>, <span class="s2">'House Elf'</span>: <span class="s0">True</span>},
+                          {<span class="s2">'Gringotts'</span>: <span class="s0">False</span>, <span class="s2">'Borgin and Burks'</span>: <span class="s0">False</span>, <span class="s2">'Flourish and Blotts'</span>: <span class="s0">False</span>, <span class="s2">&quot;Olivanders&quot;</span>: <span class="s0">True</span>},
+                          {<span class="s2">'All Toungue'</span>: <span class="s0">False</span>, <span class="s2">'Parseltongue'</span>: <span class="s0">True</span>, <span class="s2">'Polyglot'</span>: <span class="s0">False</span>, <span class="s2">'Snakeglot'</span>: <span class="s0">False</span>},
+                          {<span class="s2">'The Invisibility Cloak'</span>: <span class="s0">False</span>, <span class="s2">'The Goblet of fire'</span>: <span class="s0">True</span>, <span class="s2">'The Elder Wand'</span>: <span class="s0">False</span>,
+                           <span class="s2">'the Resurrection Stone'</span>: <span class="s0">False</span>}
+                          ]
+
+            question_count, score = <span class="s3">0</span>, <span class="s3">0</span>
+
+            <span class="s0">def </span>quiz_results():
+                btn1.destroy()
+                btn2.destroy()
+                btn3.destroy()
+                btn4.destroy()
+                qlbl.destroy()
+                frame.destroy()
+
+                text = <span class="s2">f'Your score is </span><span class="s0">\n{</span>score<span class="s0">}</span><span class="s2">/20 '</span>.upper()
+
+                res_lbl = Label(screen3_quiz, text=text, fg=<span class="s2">'#4d2600'</span>, bg=<span class="s2">'#ffb366'</span>, font=font)
+                res_lbl.pack(pady=sy(<span class="s3">200</span>, screen3_quiz))
+
+            <span class="s0">def </span>opt1():
+                <span class="s0">global </span>score, question_count
+                questionx = qlbl.cget(<span class="s2">'text'</span>)
+                val = questions_list.index(questionx)
+                key = btn1.cget(<span class="s2">'text'</span>)
+                check = answer_key[val][key]
+                <span class="s0">if </span>check:
+                    score += <span class="s3">1</span>
+                <span class="s0">if </span>question_count == <span class="s3">19</span>:
+                    quiz_results()
+                <span class="s0">elif </span>question_count &lt; <span class="s3">19</span>:
+                    questions_list.pop(val)
+                    answer_key.pop(val)
+                    answer_option.pop(val)
+                    question_count += <span class="s3">1</span>
+
+                    questions()
+
+            <span class="s0">def </span>opt2():
+                <span class="s0">global </span>score, question_count
+                questionx = qlbl.cget(<span class="s2">'text'</span>)
+                val = questions_list.index(questionx)
+                key = btn2.cget(<span class="s2">'text'</span>)
+                check = answer_key[val][key]
+                <span class="s0">if </span>check:
+                    score += <span class="s3">1</span>
+                <span class="s0">if </span>question_count == <span class="s3">19</span>:
+                    quiz_results()
+                <span class="s0">elif </span>question_count &lt; <span class="s3">19</span>:
+                    questions_list.pop(val)
+                    answer_key.pop(val)
+                    answer_option.pop(val)
+                    question_count += <span class="s3">1</span>
+
+                    questions()
+
+            <span class="s0">def </span>opt3():
+                <span class="s0">global </span>score, question_count
+                questionx = qlbl.cget(<span class="s2">'text'</span>)
+                val = questions_list.index(questionx)
+                key = btn3.cget(<span class="s2">'text'</span>)
+                check = answer_key[val][key]
+                <span class="s0">if </span>check:
+                    score += <span class="s3">1</span>
+
+                <span class="s0">if </span>question_count == <span class="s3">19</span>:
+                    quiz_results()
+                <span class="s0">elif </span>question_count &lt; <span class="s3">19</span>:
+                    questions_list.pop(val)
+                    answer_key.pop(val)
+                    answer_option.pop(val)
+                    question_count += <span class="s3">1</span>
+
+                    questions()
+
+            <span class="s0">def </span>opt4():
+                <span class="s0">global </span>score, question_count
+                questionx = qlbl.cget(<span class="s2">'text'</span>)
+                val = questions_list.index(questionx)
+                key = btn4.cget(<span class="s2">'text'</span>)
+                check = answer_key[val][key]
+                <span class="s0">if </span>check:
+                    score += <span class="s3">1</span>
+                <span class="s0">if </span>question_count == <span class="s3">19</span>:
+                    quiz_results()
+                <span class="s0">elif </span>question_count &lt; <span class="s3">19</span>:
+                    questions_list.pop(val)
+                    answer_key.pop(val)
+                    answer_option.pop(val)
+                    question_count += <span class="s3">1</span>
+
+                    questions()
+
+            <span class="s0">def </span>questions():
+                <span class="s0">global </span>num1
+                <span class="s0">if </span>len(questions_list) != <span class="s3">0</span>:
+                    l = [[<span class="s3">0</span>, <span class="s3">0</span>], [<span class="s3">0</span>, <span class="s3">1</span>], [<span class="s3">1</span>, <span class="s3">0</span>], [<span class="s3">1</span>, <span class="s3">1</span>]]
+                    <span class="s0">if </span>question_count == <span class="s3">19</span>:
+                        num1 = <span class="s3">0</span>
+
+                        <span class="s4">########## inserting question and options ##########</span>
+                        qlbl.config(text=questions_list[<span class="s3">0</span>])
+                        btn1.config(text=answer_option[num1][<span class="s3">0</span>])
+                        btn2.config(text=answer_option[num1][<span class="s3">1</span>])
+                        btn3.config(text=answer_option[num1][<span class="s3">2</span>])
+                        btn4.config(text=answer_option[num1][<span class="s3">3</span>])
+
+                    <span class="s0">else</span>:
+                        num1 = randint(<span class="s3">1</span>, len(questions_list) - <span class="s3">1</span>)
+
+                        <span class="s4">########## inserting question and options ##########</span>
+                        qlbl.config(text=questions_list[num1])
+
+                        btn1.config(text=answer_option[num1][<span class="s3">0</span>])
+                        btn1.rowconfigure(<span class="s3">1</span>)
+                        btn1.columnconfigure(<span class="s3">0</span>)
+
+                        btn2.config(text=answer_option[num1][<span class="s3">1</span>])
+                        btn2.rowconfigure(<span class="s3">1</span>)
+                        btn2.columnconfigure(<span class="s3">1</span>)
+
+                        btn3.config(text=answer_option[num1][<span class="s3">2</span>])
+                        btn3.rowconfigure(<span class="s3">0</span>)
+                        btn3.columnconfigure(<span class="s3">0</span>)
+
+                        btn4.config(text=answer_option[num1][<span class="s3">3</span>])
+                        btn4.rowconfigure(<span class="s3">0</span>)
+                        btn4.columnconfigure(<span class="s3">1</span>)
+
+                <span class="s0">else</span>:
+                    btn1.destroy()
+                    btn2.destroy()
+                    btn3.destroy()
+                    btn4.destroy()
+
+            screen2_quiz.destroy()
+            screen3_quiz = Tk()
+            screen3_quiz.title(<span class="s2">'    HARRY POTTER QUIZ'</span>)
+            screen3_quiz.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+            screen3_quiz.state(<span class="s2">'zoomed'</span>)
+            screen3_quiz.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+            x1 = screen3_quiz.winfo_screenwidth()
+            y1 = screen3_quiz.winfo_screenheight()
+
+            x2 = (x1 / <span class="s3">2</span>) - sx(<span class="s3">200</span>, screen3_quiz)
+            y2 = (y1 / <span class="s3">2</span>) - sy(<span class="s3">300</span>, screen3_quiz)
+
+            <span class="s4">############# Background #############################</span>
+
+            my_image = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">quiz bg.png'</span>, screen3_quiz))
+            my_imagelabel = Label(screen3_quiz, image=my_image)
+            my_imagelabel.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+            my_imagelabel.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>)
+
+            <span class="s4">################ questions lable #################</span>
+
+            num1 = <span class="s3">0</span>
+            texts = questions_list[<span class="s3">0</span>]
+            qlbl = Label(screen3_quiz, text=texts, font=font, fg=<span class="s2">'#4d2600'</span>, bg=<span class="s2">'#ffe6cc'</span>)
+            qlbl.pack(pady=sy(<span class="s3">100</span>, screen3_quiz), ipady=sy(<span class="s3">5</span>, screen3_quiz), ipadx=sx(<span class="s3">5</span>, screen3_quiz))
+
+            <span class="s4">########### Answer Options #####################</span>
+
+            frame = Frame(screen3_quiz, bg=<span class="s2">'orange'</span>, width=<span class="s3">90</span>, height=<span class="s3">1</span>)
+            frame.pack(padx=sx(<span class="s3">50</span>, screen3_quiz), pady=sy(<span class="s3">50</span>, screen3_quiz))
+
+            btn1 = Button(frame, width=<span class="s3">22</span>, text=answer_option[<span class="s3">0</span>][<span class="s3">0</span>], font=font, fg=<span class="s2">'#4d2600'</span>, bg=<span class="s2">'#ffb366'</span>, command=opt1)
+            <span class="s4"># btn1.grid(row=0, column=0)</span>
+
+            btn2 = Button(frame, width=<span class="s3">22</span>, text=answer_option[<span class="s3">0</span>][<span class="s3">1</span>], font=font, fg=<span class="s2">'#4d2600'</span>, bg=<span class="s2">'#ffb366'</span>, command=opt2)
+            <span class="s4"># btn2.grid(row=0, column=1)</span>
+
+            btn3 = Button(frame, width=<span class="s3">22</span>, text=answer_option[<span class="s3">0</span>][<span class="s3">2</span>], font=font, fg=<span class="s2">'#4d2600'</span>, bg=<span class="s2">'#ffb366'</span>, command=opt3)
+            <span class="s4"># btn3.grid(row=1, column=0)</span>
+            <span class="s4">#</span>
+            btn4 = Button(frame, width=<span class="s3">22</span>, text=answer_option[<span class="s3">0</span>][<span class="s3">3</span>], font=font, fg=<span class="s2">'#4d2600'</span>, bg=<span class="s2">'#ffb366'</span>, command=opt4)
+            <span class="s4"># btn4.grid(row=1, column=1)</span>
+
+            a = [btn1, btn2, btn3, btn4]
+
+            <span class="s0">for </span>i <span class="s0">in </span>range(<span class="s3">2</span>):
+                <span class="s0">for </span>j <span class="s0">in </span>range(<span class="s3">2</span>):
+                    d = randrange(len(a))
+                    e = a[d]
+                    e.grid(row=i, column=j)
+                    a.remove(e)
+
+            <span class="s4">#####################################################</span>
+
+            backbtn2 = Button(screen3_quiz, text=<span class="s2">'BACK'</span>, font=font, bg=<span class="s2">'#b35900'</span>, fg=<span class="s2">'#ffe6cc'</span>, command=back2_2)
+            backbtn2.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=sx(<span class="s3">930</span>, screen3_quiz), y=sy(<span class="s3">550</span>, screen3_quiz))
+
+            screen3_quiz.mainloop()
+
+        screen1.destroy()
+        screen2_quiz = Tk()
+        screen2_quiz.title(<span class="s2">'    HARRY POTTER QUIZ'</span>)
+        screen2_quiz.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+        screen2_quiz.state(<span class="s2">'zoomed'</span>)
+        screen2_quiz.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+
+        my_image = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">house-1.jpg'</span>, screen2_quiz))
+        my_imagelabel = Label(screen2_quiz, image=my_image)
+        my_imagelabel.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+        my_imagelabel.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=<span class="s3">0</span>, y=<span class="s3">0</span>, relwidth=<span class="s3">1</span>, relheight=<span class="s3">1</span>)
+
+        texts = <span class="s2">'''Click the Start Button to Start the Quiz'''</span>
+        textlbl = Label(screen2_quiz, text=texts, font=font, bg=<span class="s2">'#ffff33'</span>)
+        textlbl.pack(padx=sx(<span class="s3">100</span>, screen2_quiz), pady=sy(<span class="s3">55</span>, screen2_quiz))
+
+        btn = Button(screen2_quiz, text=<span class="s2">'START'</span>, font=font, fg=<span class="s2">'#cc6600'</span>, bg=<span class="s2">'#ffe6b3'</span>, command=question_quiz)
+        btn.pack(padx=sx(<span class="s3">90</span>, screen2_quiz), pady=sy(<span class="s3">60</span>, screen2_quiz))
+
+        backbtn = Button(screen2_quiz, text=<span class="s2">'BACK'</span>, font=font, bg=<span class="s2">'#ffe6b3'</span>, command=back1_1)
+        backbtn.place(relx=<span class="s3">0.0</span>, rely=<span class="s3">0.0</span>, x=sx(<span class="s3">930</span>, screen2_quiz), y=sy(<span class="s3">550</span>, screen2_quiz))
+
+        screen2_quiz.mainloop()
+
+
+    <span class="s4"># noinspection PyUnboundLocalVariable</span>
+    <span class="s0">def </span>books():
+        <span class="s4"># global screen2_book</span>
+
+        <span class="s0">def </span>back5():
+            <span class="s0">global </span>screen1
+            screen2_book.destroy()
+            screen1 = Tk()
+            screen1.title(<span class="s2">'      HARRY POTTER GAME AND QUIZ'</span>)
+            screen1.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+            screen1.state(<span class="s2">'zoomed'</span>)
+            <span class="s4"># screen1.resizable(True, True)</span>
+            mixer.init()
+            x = screen1.winfo_screenwidth()
+            y = screen1.winfo_screenheight()
+            x1, y1 = round(x / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1), round(y / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1)
+
+            <span class="s4"># mixer.music.load('music\\Harry Potter theme.mp3')</span>
+            <span class="s4"># mixer.music.play(loops=1000)</span>
+
+            <span class="s4"># creating a canvas</span>
+            canvas = Canvas(screen1, width=x, height=y)
+            canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+            <span class="s4"># set image in canvas</span>
+            my_image = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">1stbg.png'</span>, screen1))
+            canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=my_image)
+            <span class="s4"># add a label</span>
+
+            btn1 = Button(screen1, text=<span class="s2">'HOUSES OF HOGWARTS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                          width=sx(<span class="s3">25</span>, screen1), command=househis)
+            btn2 = Button(screen1, text=<span class="s2">'HOUSE SORTING GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                          width=sx(<span class="s3">25</span>, screen1), command=house)
+            btn3 = Button(screen1, text=<span class="s2">'QUIZ GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>, width=sx(<span class="s3">25</span>, screen1),
+                          command=quiz)
+            btn4 = Button(screen1, text=<span class="s2">'HARRY POTTER BOOKS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>,
+                          width=sx(<span class="s3">25</span>, screen1), command=books)
+
+            btn5 = Button(screen1, text=<span class="s2">'EXIT'</span>, font=font, bg=<span class="s2">'#b35900'</span>, fg=<span class="s2">'#ffe6cc'</span>, command=exit1)
+            btn6 = Button(screen1, text=<span class="s2">'CREDITS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#ffffff'</span>, command=credits)
+
+            win65 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1 - sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'nw'</span>, window=btn1)
+            win66 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1 - sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'ne'</span>, window=btn2)
+            win67 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1, anchor=<span class="s2">'nw'</span>, window=btn3)
+            win68 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1, anchor=<span class="s2">'ne'</span>, window=btn4)
+
+            win69 = canvas.create_window(x1 + sx(<span class="s3">595</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>, window=btn5)
+            win70 = canvas.create_window(x1 + sx(<span class="s3">250</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>, window=btn6)
+
+            screen1.mainloop()
+
+
+        <span class="s0">def </span>book1():
+            mixer.music.stop()
+            open_new(<span class="s2">'Harry potter books</span><span class="s0">\\</span><span class="s2">1.pdf'</span>)
+
+        <span class="s0">def </span>book2():
+            mixer.music.stop()
+            open_new(<span class="s2">'Harry potter books</span><span class="s0">\\</span><span class="s2">2.pdf'</span>)
+
+        <span class="s0">def </span>book3():
+            mixer.music.stop()
+            open_new(<span class="s2">'Harry potter books</span><span class="s0">\\</span><span class="s2">3.pdf'</span>)
+
+        <span class="s0">def </span>book4():
+            mixer.music.stop()
+            open_new(<span class="s2">'Harry potter books</span><span class="s0">\\</span><span class="s2">4.pdf'</span>)
+
+        <span class="s0">def </span>book5():
+            mixer.music.stop()
+            open_new(<span class="s2">'Harry potter books</span><span class="s0">\\</span><span class="s2">5.pdf'</span>)
+
+        <span class="s0">def </span>book6():
+            mixer.music.stop()
+            open_new(<span class="s2">'Harry potter books</span><span class="s0">\\</span><span class="s2">6.pdf'</span>)
+
+        <span class="s0">def </span>book7():
+            mixer.music.stop()
+            open_new(<span class="s2">'Harry potter books</span><span class="s0">\\</span><span class="s2">7.pdf'</span>)
+
+        screen1.destroy()
+        screen2_book = Tk()
+        screen2_book.title(<span class="s2">'      HARRY POTTER BOOKS'</span>)
+        screen2_book.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+        screen2_book.state(<span class="s2">'zoomed'</span>)
+        screen2_book.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+        mixer.stop()
+
+        x = screen2_book.winfo_screenwidth()
+        y = screen2_book.winfo_screenheight()
+        x1, y1 = round(x / <span class="s3">2</span>), round(y / <span class="s3">2</span>)
+
+        house_photo = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">diagon alley.png'</span>, screen2_book))
+
+        <span class="s4"># creating a canvas</span>
+        canvas = Canvas(screen2_book, width=x, height=y)
+        canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+        <span class="s4"># set image in canvas</span>
+
+        canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=house_photo)
+        <span class="s4"># add a label</span>
+
+        b1 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">1.png'</span>, screen2_book, <span class="s2">'rec'</span>, (<span class="s3">200</span>, <span class="s3">300</span>)))
+        b2 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">2.png'</span>, screen2_book, <span class="s2">'rec'</span>, (<span class="s3">200</span>, <span class="s3">300</span>)))
+        b3 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">3.png'</span>, screen2_book, <span class="s2">'rec'</span>, (<span class="s3">200</span>, <span class="s3">300</span>)))
+        b4 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">4.png'</span>, screen2_book, <span class="s2">'rec'</span>, (<span class="s3">200</span>, <span class="s3">300</span>)))
+        b5 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">5.png'</span>, screen2_book, <span class="s2">'rec'</span>, (<span class="s3">200</span>, <span class="s3">300</span>)))
+        b6 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">6.png'</span>, screen2_book, <span class="s2">'rec'</span>, (<span class="s3">200</span>, <span class="s3">300</span>)))
+        b7 = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">7.png'</span>, screen2_book, <span class="s2">'rec'</span>, (<span class="s3">200</span>, <span class="s3">300</span>)))
+
+        btn1 = Button(screen2_book, image=b1, width=sx(<span class="s3">200</span>, screen2_book), height=sy(<span class="s3">300</span>, screen2_book), command=book1)
+        btn2 = Button(screen2_book, image=b2, width=sx(<span class="s3">200</span>, screen2_book), height=sy(<span class="s3">300</span>, screen2_book), command=book2)
+        btn3 = Button(screen2_book, image=b3, width=sx(<span class="s3">200</span>, screen2_book), height=sy(<span class="s3">300</span>, screen2_book), command=book3)
+        btn4 = Button(screen2_book, image=b4, width=sx(<span class="s3">200</span>, screen2_book), height=sy(<span class="s3">300</span>, screen2_book), command=book4)
+        btn5 = Button(screen2_book, image=b5, width=sx(<span class="s3">200</span>, screen2_book), height=sy(<span class="s3">300</span>, screen2_book), command=book5)
+        btn6 = Button(screen2_book, image=b6, width=sx(<span class="s3">200</span>, screen2_book), height=sy(<span class="s3">300</span>, screen2_book), command=book6)
+        btn7 = Button(screen2_book, image=b7, width=sx(<span class="s3">200</span>, screen2_book), height=sy(<span class="s3">300</span>, screen2_book), command=book7)
+
+        bbtn = Button(screen2_book, text=<span class="s2">'BACK'</span>, font=font, bg=<span class="s2">'#b35900'</span>, fg=<span class="s2">'#ffe6cc'</span>, command=back5)
+
+        win57 = canvas.create_window(sx(<span class="s3">40</span>, screen2_book), sy(<span class="s3">15</span>, screen2_book), anchor=<span class="s2">'nw'</span>, window=btn1)
+        win58 = canvas.create_window(sx(<span class="s3">280</span>, screen2_book), sy(<span class="s3">15</span>, screen2_book), anchor=<span class="s2">'nw'</span>, window=btn2)
+        win59 = canvas.create_window(sx(<span class="s3">520</span>, screen2_book), sy(<span class="s3">15</span>, screen2_book), anchor=<span class="s2">'nw'</span>, window=btn3)
+        win60 = canvas.create_window(sx(<span class="s3">760</span>, screen2_book), sy(<span class="s3">15</span>, screen2_book), anchor=<span class="s2">'nw'</span>, window=btn4)
+        win61 = canvas.create_window(sx(<span class="s3">1000</span>, screen2_book), sy(<span class="s3">15</span>, screen2_book), anchor=<span class="s2">'nw'</span>, window=btn5)
+        win62 = canvas.create_window(sx(<span class="s3">400</span>, screen2_book), sy(<span class="s3">335</span>, screen2_book), anchor=<span class="s2">'nw'</span>, window=btn6)
+        win63 = canvas.create_window(sx(<span class="s3">640</span>, screen2_book), sy(<span class="s3">335</span>, screen2_book), anchor=<span class="s2">'nw'</span>, window=btn7)
+
+        win64 = canvas.create_window(x1 + sx(<span class="s3">450</span>, screen2_book), y1 + sy(<span class="s3">210</span>, screen2_book), anchor=<span class="s2">'nw'</span>, window=bbtn)
+
+        screen2_book.mainloop()
+
+
+    <span class="s0">def </span>credits():
+        screen_credit = Tk()
+        screen_credit.title(<span class="s2">'         CREDITS'</span>)
+        screen_credit.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+        screen_credit.geometry(<span class="s2">'890x550+300+50'</span>)
+        screen_credit.resizable(<span class="s0">True</span>, <span class="s0">True</span>)
+        c_text = <span class="s2">r'''This application is created for non-commercial, educational purposes only. 
+Could not contact the owner. If someone claims Copyright, please email at - abhraneelkarmakar@gmail.com. 
+The application should be deleted. 
+No copyright strike or lawsuit is excpected. 
+ 
+Harry Potter, Fantastic Beasts and Pottermore Publishing and Stage Theatrical Rights © J.K. Rowling. All Rights Reserved. 
+Harry Potter and Fantastic Beasts characters, names and related indicia are trademarks of and © Warner Bros. Entertainment Inc. 
+WIZARDING WORLD is a trademark of J.K. Rowling and Warner Bros. Entertainment Inc. 
+ 
+© J.K. Rowling 2016 
+ 
+Harry Potter and Fantastic Beasts Publishing and Stage Theatrical rights © J.K. Rowling 
+Harry Potter and Fantastic Beasts characters, names and related indicia and trademarks of and © Warner Bros. Entertainment Inc. All Rights Reserved. 
+Harry Potter motion picture images © and TM Warner Bros. Entertainment Inc 
+J.K. ROWLING’S WIZARDING WORLD is a trademark of J.K. Rowling and Warner Bros. Entertainment Inc. 
+Materials from the Harry Potter series of films and from the film Fantastic Beasts And Where To Find Them are courtesy of Warner Bros. Entertainment. 
+ 
+IMAGE CREDITS 
+Liberty diary © Liberty 2016 
+The 1920s Scrapbook by Robert Opie, museumofbrands.com 
+Marcus Aurelius (Loeb Classical Library) is a Harvard University Press publication. 
+ 
+© J.K. ROWLING 2016 
+Harry Potter and Fantastic Beasts Publishing rights © J.K. Rowling 
+Harry Potter and Fantastic Beasts characters, names and related indicia and trademarks of and © Warner Bros. Entertainment Inc. All Rights Reserved. 
+J.K. ROWLING’S WIZARDING WORLD is a trademark of J.K. Rowling and Warner Bros. Entertainment Inc.'''</span>
+        screen_credit.config(bg=<span class="s2">'#ffb366'</span>)
+        c_lbl = Label(screen_credit, fg=<span class="s2">'#4d2600'</span>, bg=<span class="s2">'#ffb366'</span>, text=c_text, font=(<span class="s2">'Arial'</span>, <span class="s3">10</span>))
+        c_lbl.pack(side=<span class="s2">'top'</span>, expand=<span class="s0">True</span>, padx=<span class="s3">0</span>, pady=sy(<span class="s3">0</span>, screen_credit))
+
+        screen_credit.mainloop()
+
+
+    screen1 = Tk()
+    screen1.title(<span class="s2">'      HARRY POTTER GAME AND QUIZ'</span>)
+    screen1.iconbitmap(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">icon2.ico'</span>)
+    screen1.state(<span class="s2">'zoomed'</span>)
+    <span class="s4">#screen1.resizable(True, True)</span>
+    mixer.init()
+    x = screen1.winfo_screenwidth()
+    y = screen1.winfo_screenheight()
+    x1, y1 = round(x / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1), round(y / <span class="s3">2</span>) - sx(<span class="s3">250</span>, screen1)
+
+
+    <span class="s4"># mixer.music.load('music\\Harry Potter theme.mp3')</span>
+    <span class="s4"># mixer.music.play(loops=1000)</span>
+
+    <span class="s4"># creating a canvas</span>
+    canvas = Canvas(screen1, width=x, height=y)
+    canvas.pack(fill=<span class="s2">'both'</span>, expand=<span class="s0">True</span>)
+
+    <span class="s4"># set image in canvas</span>
+    my_image = ImageTk.PhotoImage(image_resize(<span class="s2">'image</span><span class="s0">\\</span><span class="s2">1stbg.png'</span>, screen1))
+    canvas.create_image(x / <span class="s3">2</span>, y / <span class="s3">2</span>, image=my_image)
+    <span class="s4"># add a label</span>
+
+
+    btn1 = Button(screen1, text=<span class="s2">'HOUSES OF HOGWARTS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>, width=sx(<span class="s3">25</span>, screen1),command=househis)
+    btn2 = Button(screen1, text=<span class="s2">'HOUSE SORTING GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>, width=sx(<span class="s3">25</span>, screen1),command=house)
+    btn3 = Button(screen1, text=<span class="s2">'QUIZ GAME'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>, width=sx(<span class="s3">25</span>, screen1),command=quiz)
+    btn4 = Button(screen1, text=<span class="s2">'HARRY POTTER BOOKS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#e6b800'</span>, width=sx(<span class="s3">25</span>, screen1),command=books)
+
+    btn5 = Button(screen1, text=<span class="s2">'EXIT'</span>, font=font, bg=<span class="s2">'#b35900'</span>, fg=<span class="s2">'#ffe6cc'</span>, command=exit1)
+    btn6 = Button(screen1, text=<span class="s2">'CREDITS'</span>, font=font, fg=<span class="s2">'brown'</span>, bg=<span class="s2">'#ffffff'</span>, command=credits)
+
+    win65 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1- sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'nw'</span>, window=btn1)
+    win66 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1-sy(<span class="s3">70</span>, screen1), anchor=<span class="s2">'ne'</span>, window=btn2)
+    win67 = canvas.create_window(sx(<span class="s3">162</span>, screen1), y1, anchor=<span class="s2">'nw'</span>, window=btn3)
+    win68 = canvas.create_window(sx(<span class="s3">1120</span>, screen1), y1, anchor=<span class="s2">'ne'</span>, window=btn4)
+
+    win69 = canvas.create_window(x1 + sx(<span class="s3">595</span>, screen1), y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>, window=btn5)
+    win70 = canvas.create_window(x1 + sx(<span class="s3">250</span>, screen1) , y1 + sy(<span class="s3">460</span>, screen1), anchor=<span class="s2">'n'</span>, window=btn6)
+
+    screen1.mainloop()</pre>
+</body>
+</html>
